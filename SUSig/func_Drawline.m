@@ -89,7 +89,7 @@ else if X1 < X0
          else
             tn = tn + n; Y0 = Y0 - 1;
          end
-         X0 = X0 + 1; Img(X0, Y0) = nG;
+         X0 = X0 + 1; Img(X0, Y0) = nG;       
       end
    end
 end

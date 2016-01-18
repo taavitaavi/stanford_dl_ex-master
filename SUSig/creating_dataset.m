@@ -9,6 +9,9 @@ trainingSetCounter=0;
 testSet=[];
 testSetLabels=[]
 testSetCounter=0;
+dataSet=[];
+dataSetLabels=[];
+dataSetCounter=0;
 for i=1:length(fullFileNames)
     disp(['image ' int2str(i)]);
     FileName=fullFileNames{i};
@@ -36,34 +39,45 @@ for i=1:length(fullFileNames)
     end
     m=m(:,1:n);    
     splitPath=strsplit(FileName,'\');
-    if(strcmp(splitPath{end-2},'VALIDATION'))
-        testSetCounter=testSetCounter+1;
-        testSet(:,:,testSetCounter)=m;
-        if(strcmp(splitPath{end-1},'VALIDATION_GENUINE'))
-            testSetLabels(end+1)=1;
-        else
-            testSetLabels(end+1)=0;
-        end
-    else
-        trainingSetCounter=trainingSetCounter+1;
-        trainingSet(:,:,trainingSetCounter)=m;
-        if(strcmp(splitPath{end-1},'FORGERY'))
-            trainingSetLabels(end+1)=0;
-            
-        else
-            trainingSetLabels(end+1)=1;
-        end
+%     dataSet(:,:,i)=m;
+    userID=strsplit(char(splitPath(end)),'_');
+    if (~strcmp(userID(2),'f'))
+        dataSetCounter=dataSetCounter+1;
+        dataSetLabels(size(dataSetLabels)+1)=str2num(char(userID(1)));
+        dataSet(:,:,dataSetCounter)=m;
+%     else
+%         dataSetLabels(size(dataSetLabels)+1)=1;
+    end
+%     if(strcmp(splitPath{end-2},'VALIDATION'))
+%         testSetCounter=testSetCounter+1;
+%         testSet(:,:,testSetCounter)=m;
+%         if(strcmp(splitPath{end-1},'VALIDATION_GENUINE'))
+%             testSetLabels(end+1)=1;
+%         else
+%             testSetLabels(end+1)=0;
+%         end
+%     else
+%         trainingSetCounter=trainingSetCounter+1;
+%         trainingSet(:,:,trainingSetCounter)=m;
+%         if(strcmp(splitPath{end-1},'FORGERY'))
+%             trainingSetLabels(end+1)=0;
+%             
+%         else
+%             trainingSetLabels(end+1)=1;
+%         end
         
     clear memory
       
     end
+[C,~,ib] = unique(dataSetLabels);  
+dataSetLabels=ib;
+
+ [ trainingSet,trainingSetLabels,testSet,testSetLabels ] = div2TrainingAndTestSet( dataSet,dataSetLabels,0.8);
     
-    
-    
-    
+%  saveas(trainingSet,'trainingSet','mmat')   
 
     
-end
+% end
 
 
 

@@ -19,10 +19,10 @@ images=getfield(images,'trainingSet');
 labels = load('../SUsig/trainingSetLabels');
 labels=getfield(labels,'trainingSetLabels');
 labels=labels';
-labels(labels==0) = 2; % Remap 0 to 2
+% labels(labels==0) = 2; % Remap 0 to 2
 % Configuration
 imageDim = size(images,1);
-numClasses = 2;  % Number of classes (MNIST images fall into 10 classes)
+numClasses = length(unique(labels));  % Number of classes (MNIST images fall into 10 classes)
 filterDim = 11;    % Filter size for conv layer
 numFilters = 20;   % Number of filters for conv layer
 poolDim = 5;      % Pooling dimension, (should divide imageDim-filterDim+1)
@@ -48,7 +48,7 @@ if DEBUG
     % a debugging data set
     db_numFilters = 2;
     db_filterDim = 11;
-    db_poolDim = 5;
+    db_poolDim = 10;
     db_images = images(:,:,1:10);
     db_labels = labels(1:10);
     db_theta = cnnInitParams(imageDim,db_filterDim,db_numFilters,...
@@ -100,7 +100,7 @@ testLabels = load('../SUsig/testSetLabels');
 testLabels=getfield(testLabels,'testSetLabels');
 testLabels=testLabels';
 % testLabels = loadMNISTLabels('../common/t10k-labels-idx1-ubyte');
-testLabels(testLabels==0) = 2; % Remap 0 to 2
+% testLabels(testLabels==0) = 2; % Remap 0 to 2
 
 [~,cost,preds]=cnnCost(opttheta,testImages,testLabels,numClasses,...
                 filterDim,numFilters,poolDim,true);

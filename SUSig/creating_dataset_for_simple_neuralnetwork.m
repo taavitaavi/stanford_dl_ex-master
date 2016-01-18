@@ -33,7 +33,8 @@ for i=1:length(fullFileNames)
 %     norm_Y(norm_Y==0)=1;
 %     norm_Pressure=round((Pressure_res - min(Pressure_res)) / ( max(Pressure_res) - min(Pressure_res) )*255);
         
-    m=[x_res;y_res;Pressure_res;EndPts_res];
+%     m=[x_res;y_res;Pressure_res;EndPts_res];
+      m=[x_res;y_res];
         splitPath=strsplit(FileName,'\');
 %     dataSet(:,:,i)=m;
     userID=strsplit(char(splitPath(end)),'_');

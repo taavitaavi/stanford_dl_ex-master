@@ -98,7 +98,7 @@ testImages=getfield(testImages,'testSet');
 % testImages = reshape(testImages,imageDim,imageDim,[]);
 testLabels = load('../SUsig/testSetLabels');
 testLabels=getfield(testLabels,'testSetLabels');
-testLabels=testLabels';
+% testLabels=testLabels';
 % testLabels = loadMNISTLabels('../common/t10k-labels-idx1-ubyte');
 % testLabels(testLabels==0) = 2; % Remap 0 to 2
 
